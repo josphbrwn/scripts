@@ -1,6 +1,29 @@
 #!/bin/bash
-NOW=$(date +"%Y-%m-%d-%H%M")
-FILE="sanethbrown.com.$NOW.tar"
-BACKUP_DIR="/home/josephbrown/backups/wordpress"
-WWW_DIR="/var/www/"
+# Description: The following script will backup a WordPress sites files and database.
+# Created by: Joey Brown
+# Created date: January 24, 2015
 
+## Setup variables for script.
+### Date variable creation.
+NOW=$(date +"%Y-%m-%d-%H%M")
+### File name for the backup file to be created.
+FILE="sanethbrown.com.$NOW.tar"
+### Backup directory where backup file will be created.
+BACKUP_DIR="/home/josephbrown/backups/wordpress"
+### Root directory for WordPress site files.
+WWW_DIR="/var/www/"
+### WordPress MySQL Database username.
+DB_USER="wordpressuser"
+### WordPress MySQL Database password.
+DB_PASS="B@dger500"
+### WordPress MySQL Database name.
+DB_NAME="wordpress"
+### Transform expressions used when creating the archive. Designed make archive browsing simplier.
+WWW_TRANSFORM='s,^var/www,www,'
+DB_TRANSFORM='s,^home/josephbrown/backups,database,'
+
+## Expressions for creating the tar and mysqldump commands
+### Create the tar file for the WordPress site files
+tar -cvf $BACKUP_DIR/$FILE --transform $WWW_TRANSFORM $WWW_DIR
+### Create the mysqldump file for the WordPress database backup.
+mysqldump -u$DB_USER -p$DB_PASS $DB_NAME > $BACKUP_DIR/$DB_FILE
