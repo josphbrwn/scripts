@@ -1,0 +1,6 @@
+#!/bin/bash
+NOW=$(date +"%Y-%m-%d-%H%M")
+FILE="sanethbrown.com.$NOW.tar"
+BACKUP_DIR="/home/josephbrown/backups/wordpress"
+WWW_DIR="/var/www/"
+
